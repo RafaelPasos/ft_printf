@@ -1,21 +1,21 @@
 # ft_printf
 Recreating the printf function in C's stdio library with most of its functionality.
 
-<h2>Description</h2>
+<h3>Description</h3>
 <p>The function ft_printf produces output according to a format. It writes output to stdout.</p>
 
-<h2>Return values</h2>
+<h3>Return values</h3>
 <p>Upon successful return, these functions return the number of characters printed (excluding the null byte used to end output to strings). If an output error is encountered, a negative value is returned.</p>
-<h2>How the function is prototyped</h2>
+<h3>How the function is prototyped</h3>
 <code>int ft_printf(const char* format, ...)</code>
 <p>Where <code>...</code> is the variable argument list of the respective matching conversion specifiers parameters.</p>
 
-Syntax of a conversion specifier
-----------------------------
+<h3>Syntax of a conversion specifier</h3>
+
 <code>%[parameter][flags][width][.precision][length]type</code>
 
-Handled Conversion specifiers
--------------------
+<h3>Handled Conversion specifiers</h3>
+
 |Character | Description|
 |----------|------------|
 |<code>%</code> | literal % character.|
@@ -26,8 +26,8 @@ Handled Conversion specifiers
 |<code>X</code> | unsigned int as a hexadecimal number (UPPERCASE).|
 |<code>f</code> | double in normal (fixed-point) notation.|
 
-Handled Flags
-------------
+<h3>Handled Flags</h3>
+
 |Character | Description|
 |----------|------------|
 |<code>h</code> | For integer types, expects an int-sized integer argument which was promoted from a short.|
