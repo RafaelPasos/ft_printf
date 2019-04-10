@@ -1,9 +1,14 @@
 # ft_printf
 Recreating the printf function in C's stdio library with most of its functionality.
 
+<h2>Description</h2>
+<p>The function ft_printf produces output according to a format. It writes output to stdout.</p>
+
+<h2>Return values</h2>
+<p>Upon successful return, these functions return the number of characters printed (excluding the null byte used to end output to strings). If an output error is encountered, a negative value is returned.</p>
 <h2>How the function is prototyped</h2>
 <code>int ft_printf(const char* format, ...)</code>
-<p>Where <code>...</code> is the variable argument list of the matching conversion specifiers parameters.</p>
+<p>Where <code>...</code> is the variable argument list of the respective matching conversion specifiers parameters.</p>
 
 Syntax of a conversion specifier
 ----------------------------
