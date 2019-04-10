@@ -2,7 +2,8 @@
 Recreating the printf function in C's stdio library with most of its functionality.
 
 <h2>How the function is prototyped</h2>
-<code>int printf(const char* format, ...)</code>
+<code>int ft_printf(const char* format, ...)</code>
+<p>Where <code>...</code> is the variable argument list of the matching conversion specifiers parameters.</p>
 
 Syntax of a conversion specifier
 ----------------------------
