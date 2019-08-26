@@ -19,6 +19,9 @@ Recreating the printf function in C's stdio library with most of its functionali
 |Character | Description|
 |----------|------------|
 |<code>%</code> | literal % character.|
+|<code>c</code> | a specified char.|
+|<code>s</code> | string, a sequence of characters preceded of a '\0' char.|
+|<code>p</code> | the address of a variable in hexadecimal form|
 |<code>d,i</code> | int as a signed decimal number.|
 |<code>o</code> | unsigned int in octal.|
 |<code>u</code> | decimal unsigned int.|
