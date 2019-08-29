@@ -6,7 +6,7 @@
 #    By: rpasos <rpasos@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/12 19:58:06 by apasos-g          #+#    #+#              #
-#    Updated: 2019/08/25 05:42:38 by rpasos           ###   ########.fr        #
+#    Updated: 2019/08/26 04:01:26 by rpasos           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS = ft_printf.c\
 		padding.c\
 		hexlper.c\
 		print_normalstr.c\
+		lltoa.c\
 
 LIBFT = *.c\
 
@@ -32,6 +33,7 @@ CONVERSIONS = convert_c.c\
 			convert_p.c\
 			convert_percent.c\
 			convert_x.c\
+			convert_i.c\
 
 INCLUDES = includes/
 

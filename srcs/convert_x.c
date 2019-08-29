@@ -6,13 +6,13 @@
 /*   By: rpasos <rpasos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 04:06:10 by rpasos            #+#    #+#             */
-/*   Updated: 2019/08/25 20:27:30 by rpasos           ###   ########.fr       */
+/*   Updated: 2019/08/26 04:02:38 by rpasos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libftprintf.h"
 
-unsigned long long	get_num(t_printf *data)
+unsigned long long	get_num_x(t_printf *data)
 {
 	unsigned long long	num;
 
@@ -29,7 +29,7 @@ unsigned long long	get_num(t_printf *data)
 	return (num);
 }
 
-char	*make_hex_num(unsigned long long number)
+char				*make_hex_num(unsigned long long number)
 {
     char	*strhex;
 	char	hexchar;
@@ -53,14 +53,14 @@ char	*make_hex_num(unsigned long long number)
     return (strhex);
 }
 
-void						convert_x(t_printf *data)
+void				convert_x(t_printf *data)
 {
 	unsigned long long	number;
 	char				*strhex;
 	char				char_pad;
 
 	char_pad = (data->flag[3] == '0' && data->flag[0] != '-') ? '0' : ' ';
-	number = get_num(data);
+	number = get_num_x(data);
 	strhex = make_hex_num(number);
 	check_uppercase_str(data, strhex);
 	if (data->flag[0] != '-')

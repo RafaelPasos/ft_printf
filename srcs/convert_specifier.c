@@ -6,7 +6,7 @@
 /*   By: rpasos <rpasos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 01:42:20 by rpasos            #+#    #+#             */
-/*   Updated: 2019/08/25 20:09:13 by rpasos           ###   ########.fr       */
+/*   Updated: 2019/08/26 04:13:04 by rpasos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@ void	convert_specifier(t_printf *data)
 	get_length(data);
 	get_conversion_type(data);
 	/* 
-	if (data->conversion == 'd')
-		convert_d(data);
-	if (data->conversion == 'i')
-		convert_i(data);
 	if (data->conversion == 'u')
 		convert_u(data);
 	if (data->conversion == 'o')
@@ -40,6 +36,8 @@ void	convert_specifier(t_printf *data)
 		convert_p(data);
 	if (data->conversion == 'x' || data->conversion == 'X')
 		convert_x(data);
+	if (data->conversion == 'd' || data->conversion == 'i')
+		convert_i(data);
 	if (data->conversion == '%')
 		convert_percent(data);
 }
