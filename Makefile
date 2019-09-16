@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rpasos <rpasos@student.42.fr>              +#+  +:+       +#+         #
+#    By: apasos-g <apasos-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/12 19:58:06 by apasos-g          #+#    #+#              #
-#    Updated: 2019/08/26 04:01:26 by rpasos           ###   ########.fr        #
+#    Updated: 2019/09/08 04:53:57 by apasos-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS = ft_printf.c\
 		hexlper.c\
 		print_normalstr.c\
 		lltoa.c\
+		ulltoa.c\
 
 LIBFT = *.c\
 
@@ -34,6 +35,9 @@ CONVERSIONS = convert_c.c\
 			convert_percent.c\
 			convert_x.c\
 			convert_i.c\
+			convert_o.c\
+			convert_u.c\
+			convert_f.c\
 
 INCLUDES = includes/
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpasos <rpasos@student.42.fr>              +#+  +:+       +#+        */
+/*   By: apasos-g <apasos-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 00:43:39 by apasos-g          #+#    #+#             */
-/*   Updated: 2019/08/25 20:40:19 by rpasos           ###   ########.fr       */
+/*   Updated: 2019/09/05 03:35:28 by apasos-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void    initialize(t_printf *data, const char *format)
 	data->conversion_mask = "sScdiuoxXpf%";
 	data->flag_mask = "-+ 0#";
 	data->length_mask = "lhL";
+	data->num_positive = 1;
 }
 
 void    reset(t_printf *data)
@@ -35,4 +36,5 @@ void    reset(t_printf *data)
 	data->conversion = '\0';
 	data->field_width = 0;
 	data->precision = -1;
+	data->num_positive = 1;
 }

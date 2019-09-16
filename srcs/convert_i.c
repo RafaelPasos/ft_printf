@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   convert_i.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpasos <rpasos@student.42.fr>              +#+  +:+       +#+        */
+/*   By: apasos-g <apasos-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/26 00:19:18 by rpasos            #+#    #+#             */
-/*   Updated: 2019/08/26 05:58:19 by rpasos           ###   ########.fr       */
+/*   Created: 2019/09/02 20:52:13 by apasos-g          #+#    #+#             */
+/*   Updated: 2019/09/08 04:53:19 by apasos-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libftprintf.h"
-#include <stdio.h>
 
 long long	get_num_i(t_printf *data)
 {
@@ -30,60 +29,137 @@ long long	get_num_i(t_printf *data)
 	return (num);
 }
 
-void		dispatch_padding_i(t_printf *data, long long num, char *numpre)
+void		dispatch_padding_i(t_printf *data, long long num, char *strnum)
 {
-	char		char_pad;
-	char		char_lead;
+	char	char_pad;
 
-	char_pad = (data->flag[3] == '0' && data->flag[0] != '-') ? '0' : ' ';
-	char_lead = 'n';
-	if (data->flag[2] == ' ')
-		char_lead = ' ';
-	if (data->flag[1] == '+')
-		char_lead = '+';
-	if (char_lead != 'n')
+	char_pad = (data->flag[ZEROFLAG] == '0' && data->flag[MINUSFLAG] != '-') ? '0' : ' ';
+	if (data->precision != -1)
 	{
-		if (num >= 0)
-		{
-			write(1, &char_lead, 1);
-			data->len++;
-			padding(data, char_pad, data->field_width - ft_strlen(numpre) - 1);
-		}
-		else
-			padding(data, char_pad, data->field_width - ft_strlen(numpre));
+		padding(data, ' ', data->field_width - ft_strlen(strnum));
 	}
 	else
-		padding(data, char_pad, data->field_width - ft_strlen(numpre));
+	{
+		if (data->flag[ZEROFLAG] == '0' && num < 0)
+		{
+			write(1, "-", 1);
+			padding(data, char_pad, data->field_width - ft_strlen(strnum) - 1);
+			data->len++;
+		}
+		else
+		{
+			if (num > 0 && (data->flag[PLUSFLAG] == '+' || data->flag[SPACEFLAG] == ' '))
+				padding(data, char_pad, data->field_width - ft_strlen(strnum) - 1);
+			else
+				if (num < 0)
+					padding(data, char_pad, data->field_width - ft_strlen(strnum) - 1);
+				else
+					padding(data, char_pad, data->field_width - ft_strlen(strnum));		
+		}
+	}
 }
 
-char	*fix_precision_i(int presover, long long num, char *strnum)
+char	*precision_padder(int presover, char *strnum)
 {
-	char	*newstr;
-	int		finalsize;
 	int		i;
-	int		j;
+	char	*newstr;
 
-	finalsize = ft_strlen(strnum) + presover;
-	//if (num < 0)
-	//	finalsize++;
-	newstr = ft_strnew(finalsize);
+	newstr = ft_strnew(ft_strlen(strnum) + presover);
 	i = 0;
-	while (i < presover)
+	while (i < (int) ft_strlen(strnum) + presover)
 	{
-		newstr[i] = '0';
+		if (i < presover)
+			newstr[i] = '0';
+		else
+			newstr[i] = strnum[i - presover];
 		i++;
 	}
-	j = 0;
-	if (num < 0)
-		j++;
-	while (j < (int)ft_strlen(strnum))
-	{
-		newstr[i + j] = strnum[j];
-		j++;
-	}
-	if (num < 0)
-		newstr[0] = '-';
+	newstr[i] = '\0';
 	return (newstr);
+}
+
+char	*precision_padder_leadchar(t_printf *data, int presover, char *strnum)
+{
+	int		i;
+	char	lead;
+	char	*newstr;
+
+	lead = '.';
+	if (data->flag[SPACEFLAG])
+		lead = ' ';
+	if (data->flag[PLUSFLAG])
+		lead = '+';
+	if (data->num_positive == 0)
+		lead = '-';
+	newstr = ft_strnew(ft_strlen(strnum) + presover + 1);
+	i = 1;
+	while (i < (int)ft_strlen(strnum) + presover + 1)
+	{
+		if (i < presover + 1)
+			newstr[i] = '0';
+		else
+			newstr[i] = strnum[i - presover];
+		i++;
+	}
+	newstr[0] = lead;
+	newstr[i] = '\0';
+	return (newstr);
+}
+
+char	*peel_negative_sign_str(char *num)
+{
+	char	*oolk;
+
+	oolk = num + 1;
+	return (oolk);
+}
+
+char    *transform_num(t_printf *data, long long num)
+{
+    char    *str;
+	char	*tmpstr;
+
+    if (num == 0 && data->precision == 0)
+        return (ft_strdup(""));
+    str = ft_lltoa(num);
+	if (num < 0)
+	{
+		data->num_positive = 0;
+		tmpstr = str;
+		str = peel_negative_sign_str(str);
+		free(tmpstr);
+	}
+	return str;
+}
+
+void		put_sign_i(t_printf *data)
+{
+	if (data->precision != -1)
+		return ;
+	if (data->num_positive != 1)
+	{
+		if (data->flag[ZEROFLAG] == '0')
+			return ;
+		write(1, "-", 1);
+		data->len++;
+		return ;
+	}
+	else
+	{
+		if (data->flag[PLUSFLAG] == '+')
+		{
+			write(1, "+", 1);
+			data->len++;
+			return ;
+		}
+		if (data->flag[SPACEFLAG] == ' ')
+		{
+			write(1, " ", 1);
+			data->len++;
+			return ;
+		}
+	}
+	return ;
 }
 
 void		convert_i(t_printf *data)
@@ -93,21 +169,23 @@ void		convert_i(t_printf *data)
 	char		*newstr;
 
 	num = get_num_i(data);
-	strnum = ft_lltoa(num);
+	strnum = transform_num(data, num);
 	newstr = strnum;
 	if (data->precision > (int)ft_strlen(strnum))
 	{
-		newstr = fix_precision_i(data->precision - ft_strlen(strnum), num, strnum);
+		if (data->num_positive && (!(data->flag[SPACEFLAG] == ' ')) \
+								&& (!(data->flag[PLUSFLAG] == '+')))
+			newstr = precision_padder(data->precision - ft_strlen(strnum), strnum);
+		else
+			newstr = precision_padder_leadchar(data, data->precision - ft_strlen(strnum), strnum);
 		free(strnum);
 	}
-	if (data->flag[0] != '-')
+	if (data->field_width > (int)ft_strlen(newstr) && (!(data->flag[MINUSFLAG] == '-')))
 		dispatch_padding_i(data, num, newstr);
-	if (ft_strcmp(newstr, "0") != 0 || data->precision != 0)
-	{
-		ft_putstr(newstr);
-		data->len += ft_strlen(newstr);
-	}
-	if (data->flag[0] == '-')
+	put_sign_i(data);
+	ft_putstr(newstr);
+	data->len += ft_strlen(newstr);
+	if (data->field_width > (int)ft_strlen(newstr) && data->flag[MINUSFLAG] == '-')
 		dispatch_padding_i(data, num, newstr);
-	free(newstr);
+	//free(newstr);
 }

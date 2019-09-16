@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lltoa.c                                            :+:      :+:    :+:   */
+/*   ulltoa.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apasos-g <apasos-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/26 02:40:02 by rpasos            #+#    #+#             */
-/*   Updated: 2019/09/07 17:19:10 by apasos-g         ###   ########.fr       */
+/*   Created: 2019/09/08 00:37:26 by apasos-g          #+#    #+#             */
+/*   Updated: 2019/09/08 02:26:29 by apasos-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libftprintf.h"
 
-char	*ft_lltoapositive(long long nbr)
+char	*ft_ulltoa(unsigned long long nbr)
 {
-	long long	digits;
-	long long	nbrcpy;
+	unsigned long long	digits;
+	unsigned long long	nbrcpy;
 	char		*snbr;
 
+	if (nbr == 0)
+		return (ft_strdup("0"));
 	digits = 0;
 	nbrcpy = nbr;
 	while (nbrcpy > 0)
@@ -35,45 +37,4 @@ char	*ft_lltoapositive(long long nbr)
 		digits--;
 	}
 	return (snbr);
-}
-
-char	*ft_lltoanegative(long long nbr)
-{
-	char		*conv;
-	long long	i;
-	char		*snbr;
-	long long	digits;
-
-	digits = 1;
-	i = 0;
-	if (!(snbr = ft_lltoapositive(nbr * -1)))
-		return (NULL);
-	while (snbr[i])
-	{
-		digits++;
-		i++;
-	}
-	if (!(conv = malloc(sizeof(char) * (digits + 1))))
-		return (NULL);
-	conv[digits] = '\0';
-	conv[0] = '-';
-	i = 0;
-	while (snbr[i])
-	{
-		conv[i + 1] = snbr[i];
-		i++;
-	}
-	return (conv);
-}
-
-char	*ft_lltoa(long long nbr)
-{
-	if (nbr == LLONG_MIN)
-		return (ft_strdup("-9223372036854775808"));
-	if (nbr == 0)
-		return (ft_strdup("0"));
-	if (nbr > 0)
-		return (ft_lltoapositive(nbr));
-	else
-		return (ft_lltoanegative(nbr));
 }
